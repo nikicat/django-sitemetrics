@@ -79,7 +79,8 @@ class sitemetricsNode(template.Node):
 
     def __init__(self, keycodes):
         self.keycodes = keycodes
-        self.template = template.loader.get_template('sitemetrics/sitemetrics.tpl')
 
     def render(self, context):
-        return self.template.render(template.Context({'keycodes': self.keycodes}))
+        template = context.template.engine.get_template('sitemetrics/sitemetrics.tpl')
+        context['keycodes'] = self.keycodes
+        return template.render(context)
